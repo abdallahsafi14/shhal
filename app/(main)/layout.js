@@ -1,12 +1,21 @@
-import "../globals.css";
+'use client';
 
-export const metadata = { title: "Shhal", dir: "rtl" };
+import "../globals.css";
+import GlobalHeader from "@/components/shared/GlobalHeader";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl">
       <body>
-           {children}
+        <div className="min-h-screen bg-[#F9FAFB]">
+          <div className="max-w-[1400px] mx-auto px-6 py-8">
+            {/* Global Header */}
+            <GlobalHeader />
+            
+            {/* Page Content */}
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );

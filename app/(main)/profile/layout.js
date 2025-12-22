@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { 
     UserIcon, 
     BanknotesIcon, 
@@ -12,10 +12,7 @@ import {
     PencilIcon, 
     PhoneIcon, 
     EnvelopeIcon,
-    ChevronLeftIcon,
-    MagnifyingGlassIcon,
-    BellIcon,
-    HeartIcon
+    ChevronLeftIcon
 } from './components/Icons';
 
 export default function ProfileLayout({ children }) {
@@ -46,47 +43,6 @@ export default function ProfileLayout({ children }) {
     return (
         <div className="min-h-screen bg-white py-8 px-4 md:px-12 dir-rtl font-sans text-right relative overflow-x-hidden">
              <div className="max-w-[1400px] mx-auto relative z-10">
-                 {/* Page Header (Global Top Bar) */}
-                 <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-6 mb-12">
-                     
-                     {/* Navigation Links (Right Side in RTL - First Child) */}
-                     <nav className="flex items-center gap-8 self-end md:self-center">
-                         <Link href="/" className="text-[#55493B] font-bold text-lg hover:text-[#07334B] transition-colors">الرئيسية</Link>
-                         <Link href="/categories" className="text-[#55493B] font-bold text-lg hover:text-[#07334B] transition-colors">الفئات</Link>
-                     </nav>
-
-                     {/* Search and User Actions (Left Side in RTL - Second Child) */}
-                     <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
-                         {/* Search */}
-                         <div className="relative">
-                             <input 
-                                 type="text" 
-                                 placeholder="ابحث هنا على ما تريد..." 
-                                 className="bg-[#F5F5F5] rounded-full py-2.5 px-4 pr-10 pl-4 w-full md:w-64 text-sm text-right focus:outline-none focus:ring-1 focus:ring-[#8B8A6C] transition-all placeholder:text-gray-400"
-                             />
-                             <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                         </div>
-
-                         <div className="flex items-center gap-3">
-                             <button className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors">
-                                 <HeartIcon className="w-5 h-5" />
-                             </button>
-                             <button className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-gray-400 hover:text-[#07334B] transition-colors">
-                                 <BellIcon className="w-5 h-5" />
-                             </button>
-                             <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-100 flex-shrink-0">
-                                 {imagePreview ? (
-                                     <img src={imagePreview} alt="User" className="w-full h-full object-cover" />
-                                 ) : (
-                                     <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                                         <UserIcon className="w-6 h-6 text-gray-400" />
-                                     </div>
-                                 )}
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-
                  <div className="flex flex-col lg:flex-row gap-8 items-start">
                      {/* RIGHT SIDEBAR */}
                      <div className="w-full lg:w-[380px] flex-shrink-0 flex flex-col gap-6">
