@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { X, Search, SlidersHorizontal } from 'lucide-react';
+import { X, Search, SlidersHorizontal, Trash2, ChevronLeft } from 'lucide-react';
 import SearchFilterModal from './SearchFilterModal';
 
 /**
@@ -10,6 +10,21 @@ import SearchFilterModal from './SearchFilterModal';
  */
 export default function SearchModal({ isOpen, onClose, results = [] }) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  // Mock search history data
+  const [searchHistory, setSearchHistory] = useState([
+    { id: 1, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
+    { id: 2, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
+    { id: 3, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
+    { id: 4, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
+    { id: 5, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
+    { id: 6, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
+  ]);
+
+  const deleteHistoryItem = (id) => {
+    setSearchHistory(searchHistory.filter(item => item.id !== id));
+  };
 
   if (!isOpen) return null;
 
@@ -52,6 +67,8 @@ export default function SearchModal({ isOpen, onClose, results = [] }) {
               <input 
                 type="text" 
                 placeholder="ابحث هنا..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-white border border-gray-200 rounded-2xl py-3 px-12 text-[14px] text-right focus:outline-none focus:border-[#8B8A6C] transition-all"
               />
               <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -69,8 +86,58 @@ export default function SearchModal({ isOpen, onClose, results = [] }) {
           {/* Search Content */}
           <div className="max-h-[70vh] overflow-y-auto px-4 pb-12 custom-scrollbar dir-ltr">
             <div className="dir-rtl w-full px-2">
-              {results.length === 0 ? (
-                /* Empty State (Image 0) */
+              {searchQuery.trim() === '' ? (
+                /* Search History (When input is empty) */
+                <div className="space-y-3">
+                  <div className="mb-4 text-right px-2">
+                    <h3 className="text-[14px] font-bold text-[#07334B]">
+                      سجل البحث (لا تعتبر بالبحث عنه)
+                    </h3>
+                  </div>
+                  {searchHistory.map((item) => (
+                    <div
+                      key={item.id}
+                      className="bg-white rounded-2xl p-4 border border-gray-100 hover:shadow-md transition-all duration-200 cursor-pointer group relative"
+                    >
+                      {/* Delete Button */}
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteHistoryItem(item.id);
+                        }}
+                        className="absolute top-4 left-4 w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4 text-red-500" />
+                      </button>
+
+                      <div className="flex gap-4 items-center">
+                        {/* Content */}
+                        <div className="flex-1 min-w-0 text-right space-y-1 pr-2">
+                          <h3 className="text-[15px] font-bold text-[#333333] leading-tight">
+                            {item.text}
+                          </h3>
+                          <p className="text-[12px] text-[#777777]">
+                            {item.category}
+                          </p>
+                        </div>
+
+                        {/* Image */}
+                        <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-50 border border-gray-100">
+                          <img 
+                            src={item.image} 
+                            alt={item.text} 
+                            className="w-full h-full object-cover" 
+                          />
+                        </div>
+
+                        {/* Arrow */}
+                        <ChevronLeft className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : results.length === 0 ? (
+                /* Empty State (When searching but no results) */
                 <div className="py-16 px-8 text-center flex flex-col items-center animate-in fade-in duration-500">
                   <div className="relative w-48 h-48 mb-8 scale-110">
                     <div className="absolute inset-0 bg-gray-50 rounded-full opacity-50" />
@@ -93,7 +160,7 @@ export default function SearchModal({ isOpen, onClose, results = [] }) {
                   </p>
                 </div>
               ) : (
-                /* Results List */
+                /* Results List (When searching with results) */
                 <div className="space-y-4">
                   <div className="mb-2 text-right">
                     <h3 className="text-[14px] font-bold text-[#07334B]">

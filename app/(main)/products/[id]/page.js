@@ -215,68 +215,68 @@ export default function ProductDetailsPage({ params }) {
             {/* Tab Content: Reviews */}
             {activeTab === 'reviews' && (
                 <div className="flex flex-col lg:flex-row gap-20">
-                    {/* Right Side: Rating Summary (First Child in RTL = Right) */}
-                    <div className="w-full lg:w-1/2 space-y-8 order-1">
-                        <h3 className="text-xl font-bold text-[#07334B] text-right">الأراء والتقييمات :</h3>
+                     {/* Right Side: Rating Summary (Second Child = Right in RTL) */}
+                    <div className="w-full lg:w-[400px] space-y-8 order-1">
+                        <h3 className="text-xl font-bold text-[#333333] text-right">: الأراء والتقييمات</h3>
                         
                         <div className="flex items-center justify-end gap-5">
                             <div className="text-right">
-                                <div className="flex items-center gap-2">
-                                    <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
-                                    <span className="text-[42px] font-bold text-[#333333] leading-none mb-1">{reviews.average}</span>
+                                <div className="flex items-center justify-end gap-2">
+                                    <Star className="w-7 h-7 text-[#8B8A6C] fill-[#8B8A6C]" />
+                                    <span className="text-[48px] font-bold text-[#333333] leading-none">{reviews.average}</span>
                                 </div>
-                                <span className="text-[15px] text-[#999999] font-medium block pr-8">{reviews.total} شخص</span>
+                                <span className="text-[14px] text-[#999999] font-medium block text-right mt-2">{reviews.total} شخص</span>
                             </div>
                         </div>
 
-                        <div className="space-y-4">
+                        <div className="space-y-3">
                             {reviews.breakdown.map((item, i) => (
-                                <div key={i} className="flex items-center gap-4">
-                                    <span className="text-sm font-bold text-[#555555] min-w-[12px]">{item.stars}</span>
-                                    <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden dir-rtl">
+                                <div key={i} className="flex items-center gap-4 justify-end">
+                                    <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
                                         <div 
                                             className="h-full bg-[#8B8A6C] rounded-full transition-all duration-1000" 
                                             style={{ width: `${item.percentage}%` }}
                                         />
                                     </div>
+                                    <span className="text-[13px] font-bold text-[#555555] min-w-[12px]">{item.stars}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
-
-                    {/* Left Side: Review List (Second Child in RTL = Left) */}
-                    <div className="flex-1 space-y-12 text-right order-2">
+                    {/* Left Side: Review List (First Child = Left in RTL) */}
+                    <div className="flex-1 space-y-8 text-right order-2">
                         {reviews.items.map((review, i) => (
-                            <div key={i} className="space-y-4 animate-in fade-in duration-500 pb-8 border-b border-gray-50 last:border-0">
-                                {/* Top Header: Name/Avatar on right, Stars on left */}
+                            <div key={i} className="space-y-4 pb-8 border-b border-gray-100 last:border-0">
+                                {/* Top Header: Stars on left, User info on right */}
                                 <div className="flex items-start justify-between">
-                                    {/* Top Left: Stars */}
-                                    <div className="flex gap-0.5">
-                                        {Array(5).fill(0).map((_, j) => (
-                                            <Star key={j} className={`w-3.5 h-3.5 ${j < review.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`} />
-                                        ))}
-                                    </div>
+                                    {/* Left: Stars */}
+                                  
                                     
-                                    {/* Top Right: User info */}
+                                    {/* Right: User info */}
                                     <div className="flex items-center gap-4">
-                                        <div className="text-right">
-                                            <h4 className="font-bold text-[#333333] text-[16px]">{review.user}</h4>
-                                            <span className="text-sm text-[#999999]">{review.date}</span>
-                                        </div>
                                         <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
                                             <img src="/products/camera.jpg" alt="user" className="w-full h-full object-cover" />
                                         </div>
+                                        <div className="text-right">
+                                            <h4 className="font-bold text-[#333333] text-[15px]">{review.user}</h4>
+                                            <span className="text-[13px] text-[#999999]">{review.date}</span>
+                                        </div>
+                                    </div>
+                                      <div className="flex gap-1">
+                                        {Array(5).fill(0).map((_, j) => (
+                                            <Star key={j} className={`w-4 h-4 ${j < review.rating ? 'text-[#8B8A6C] fill-[#8B8A6C]' : 'text-gray-300'}`} />
+                                        ))}
                                     </div>
                                 </div>
 
-                                <p className="text-[#777777] text-[15px] leading-relaxed max-w-2xl ml-auto pr-1">
+                                <p className="text-[#555555] text-[14px] leading-relaxed">
                                     {review.comment}
                                 </p>
 
                                 {review.images && (
-                                    <div className="flex justify-end gap-3 pt-1">
+                                    <div className="flex justify-end gap-3 pt-2">
                                         {review.images.map((img, idx) => (
-                                            <div key={idx} className="w-20 h-20 rounded-xl overflow-hidden border border-gray-100 hover:scale-105 transition-transform cursor-pointer">
+                                            <div key={idx} className="w-20 h-20 rounded-xl overflow-hidden border border-gray-200 hover:scale-105 transition-transform cursor-pointer">
                                                 <img src={img} alt="review" className="w-full h-full object-cover" />
                                             </div>
                                         ))}
@@ -285,12 +285,14 @@ export default function ProductDetailsPage({ params }) {
                             </div>
                         ))}
 
-                        <div className="pt-4 flex justify-center">
-                            <button className="px-12 py-3.5 bg-[#EBECF0] text-[#55493B] font-bold rounded-[0.8rem] hover:bg-gray-200 transition-colors text-[15px]">
+                        <div className="pt-6 flex justify-center">
+                            <button className="px-16 py-3.5 bg-[#8B8A6C33] text-secondary border border-[secondary] font-bold rounded-xl hover:bg-secondary hover:text-white transition-colors text-[15px]">
                                 تحميل المزيد
                             </button>
                         </div>
                     </div>
+
+                   
                 </div>
             )}
 
@@ -319,34 +321,67 @@ export default function ProductDetailsPage({ params }) {
                     </div>
 
                     <div className="bg-[#FFFFFF] rounded-[2.5rem] p-8 md:p-12 border border-gray-50 shadow-sm">
-                        <h3 className="text-lg font-bold text-[#333333] mb-10 text-right">: الرسم البياني</h3>
+                        <h3 className="text-xl font-bold text-[#333333] text-right mb-10">: الرسم البياني</h3>
                         <div className="flex flex-col lg:flex-row gap-12">
-                            <div className="flex flex-col gap-6 order-2 lg:order-1 min-w-[160px]">
-                                {[{l:'الانحراف السعري', c:'bg-red-500'}, {l:'متوسط السعر', c:'bg-amber-600'}, {l:'تحت المتوسط', c:'bg-green-500'}, {l:'فوق المتوسط', c:'bg-purple-600'}].map((item, i) => (
-                                    <div key={i} className="flex items-center gap-3 justify-end lg:justify-start">
-                                        <span className="text-sm font-bold text-[#555555]">{item.l}</span>
-                                        <div className={`w-4 h-4 rounded-[4px] ${item.c}`} />
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="flex-1 order-1 lg:order-2 bg-[#F9F9F9] rounded-3xl p-8">
-                                <h4 className="text-xl font-bold text-[#07334B] text-center mb-12">تحليل سعر الهاتف</h4>
+                            {/* Legend - Now on Left (visually) because of flex-row-reverse, or standard flex-row if direction is LTR. 
+                                User wants "label to the left". 
+                                In a standard LTR container:
+                                - First child is Left
+                                - Second child is Right
+                                
+                                In the previous code: 
+                                - Legend was First Child (Left)
+                                - Chart was Second Child (Right)
+                                
+                                User says "chart design is off... I want the label to the left".
+                                This implies the label IS currently on the Left? 
+                                Wait, if the app is RTL direction, then:
+                                - First child is Right
+                                - Second child is Left
+                                
+                                If user wants "label to the left", in RTL, that means the Label should be the Second Child.
+                                So: Chart (Right) -> Legend (Left).
+                                
+                                Let's swap the order in code so Legend is second child.
+                                */}
+                            
+                            <div className="flex-1 bg-[#FFFFFF] rounded-3xl p-8 border border-gray-50 shadow-sm">
+                                <h4 className="text-xl font-bold text-[#07334B] text-right mb-12">تحليل سعر الهاتف</h4>
                                 <div className="h-[400px] w-full dir-ltr">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <LineChart data={product.chartData}>
                                             <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill:'#AAA',fontSize:12}} />
                                             <YAxis axisLine={false} tickLine={false} tick={{fill:'#AAA',fontSize:12}} ticks={[100, 200, 300, 400]} />
                                             <Tooltip content={({active, payload}) => (active && payload?.length ? (
-                                                <div className="bg-white p-3 rounded-xl border shadow-lg text-right">
-                                                    <p className="text-sm font-bold">{payload[0].payload.name}</p>
-                                                    <p className="text-lg font-bold text-[#8B8A6C]">${payload[0].value}</p>
+                                                <div className="bg-[#F0F2E8] p-4 rounded-xl border border-[#D5D4BC] shadow-lg text-left min-w-[150px]">
+                                                    <p className="text-sm text-[#555555] mb-1">Target</p>
+                                                    <div className="flex items-center gap-2">
+                                                        <p className="text-lg font-bold text-[#07334B]">$1200.72</p>
+                                                        <p className="text-sm font-bold text-[#22C55E]">+124.12</p>
+                                                    </div>
                                                 </div>
                                             ) : null)} />
-                                            <ReferenceLine y={200} stroke="#8B8A6C" strokeDasharray="3 3" />
-                                            <Line type="monotone" dataKey="price" stroke="#8B8A6C" strokeWidth={3} dot={{r:6, fill:'#FFF', stroke:'#8B8A6C'}} />
+                                            <ReferenceLine y={200} stroke="#D97706" strokeWidth={2} />
+                                            <Line 
+                                                type="monotone" 
+                                                dataKey="price" 
+                                                stroke="#8B8A6C" 
+                                                strokeWidth={4} 
+                                                dot={{r:6, fill:'#F0F2E8', stroke:'#8B8A6C', strokeWidth:2}} 
+                                                activeDot={{r:8, fill:'#F0F2E8', stroke:'#8B8A6C', strokeWidth:2}}
+                                            />
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
+                            </div>
+
+                            <div className="flex flex-col justify-center gap-8 min-w-[200px]">
+                                {[{l:'الانحراف السعري', c:'bg-[#EF4444]'}, {l:'متوسط السعر', c:'bg-[#B45309]'}, {l:'تحت المتوسط', c:'bg-[#22C55E]'}, {l:'فوق المتوسط', c:'bg-[#A855F7]'}].map((item, i) => (
+                                    <div key={i} className="flex items-center justify-end gap-3 group cursor-pointer hover:opacity-80 transition-opacity">
+                                        <span className="text-[15px] font-bold text-[#555555]">{item.l}</span>
+                                        <div className={`w-5 h-5 rounded-[6px] ${item.c} shadow-sm`} />
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -358,9 +393,14 @@ export default function ProductDetailsPage({ params }) {
                 <div className="bg-[#FFFFFF] border border-gray-50 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
                         <h2 className="text-lg font-bold text-[#07334B]">12 من المتاجر يتوفر بها المنتج</h2>
-                        <div className="flex items-center gap-4 bg-[#F9F9F9] p-2 px-4 rounded-full border">
-                            <span className="text-xs font-bold">الأسعار من الأقل للأعلى</span>
+                        <div className='flex items-center gap-3'>
+
+                            <span className="text-s font-bold text-muted-foreground ">ترتيب حسب : </span>
+                        <div className="flex items-center gap-4 bg-[transparent] p-2 px-4  border">
+
+                            <span className="text-xs font-bold text-primary">الأسعار تصاعديا </span>
                             <ChevronDown className="w-4 h-4" />
+                        </div>
                         </div>
                     </div>
                     <div className="space-y-10">
