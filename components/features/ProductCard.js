@@ -46,32 +46,32 @@ export default function ProductCard({ product }) {
           <h3 className="text-[17px] font-bold text-[#333333] mb-2 group-hover:text-[#07334B] transition-colors">
             {product.name}
           </h3>
-          <div className="flex items-center justify-end gap-2 text-[13px] text-[#777777]">
-            <span className="font-medium">{product.category}</span>
+          <div className="flex items-center justify-start gap-2 text-[13px] text-[#777777]">
             <Grid3x3 className="w-4 h-4 text-[#8B8A6C]" />
             <span className="text-[#AAAAAA] mr-1">الفئة :</span>
+            <span className="font-medium">{product.category}</span>
           </div>
         </div>
 
         {/* Price Info */}
         <div className="space-y-2.5 mb-5">
-          <div className="flex items-center justify-end gap-2 text-[13px] text-[#777777]">
-            <span className="font-bold text-[#8B8A6C] text-[15px]">{product.minPrice}</span>
+          <div className="flex items-center justify-start gap-2 text-[13px] text-[#777777]">
             <TrendingDown className="w-4 h-4 text-[#8B8A6C]" />
             <span className="text-[#AAAAAA]">أقل سعر :</span>
+            <span className="font-bold text-[#8B8A6C] text-[15px]">{product.minPrice}</span>
           </div>
-          <div className="flex items-center justify-end gap-2 text-[13px] text-[#777777]">
-            <span className="font-bold text-[#333333] text-[15px]">{product.maxPrice}</span>
+          <div className="flex items-center justify-start gap-2 text-[13px] text-[#777777]">
             <TrendingUp className="w-4 h-4 text-gray-400" />
             <span className="text-[#AAAAAA]">أعلى سعر :</span>
+            <span className="font-bold text-[#333333] text-[15px]">{product.maxPrice}</span>
           </div>
         </div>
 
         {/* Footer Meta */}
-        <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-end gap-3 text-[12px] text-[#AAAAAA]">
-          <span className="font-medium text-[#777777]">{product.views}</span>
+        <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-start gap-3 text-[12px] text-[#AAAAAA]">
           <Eye className="w-4 h-4" />
           <span className="text-[#BBBBBB]">عدد المشاهدين :</span>
+          <span className="font-medium text-[#777777]">{product.views}</span>
         </div>
       </Link>
     </div>

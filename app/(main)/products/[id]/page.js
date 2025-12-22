@@ -136,13 +136,13 @@ export default function ProductDetailsPage({ params }) {
                 <div className="order-2 lg:order-1 text-right">
                     <h1 className="text-[26px] font-bold text-[#333333] mb-6 leading-tight">{product.name}</h1>
                     <div className="mb-8 space-y-3">
-                        <h3 className="text-[#8B8A6C] font-bold text-[15px] flex items-center justify-end gap-2">
+                        <h3 className="text-[#8B8A6C] font-bold text-[15px] flex items-center justify-start gap-2">
                              <Sparkles className="w-4 h-4" /> وصف المنتج :
                         </h3>
                         <p className="text-[#777777] text-[14px] leading-relaxed max-w-xl ml-auto">{product.description}</p>
                     </div>
 
-                    <div className="flex items-center justify-end gap-10 mb-8 pb-8 border-b border-gray-100">
+                    <div className="flex items-center justify-center gap-10 mb-8 pb-8 border-b border-gray-100">
                         <div className="flex items-center gap-2">
                             <span className="text-[15px] font-bold text-[#555555]">{product.category}</span>
                             <Grid3x3 className="w-5 h-5 text-[#8B8A6C]" />
@@ -158,15 +158,15 @@ export default function ProductDetailsPage({ params }) {
                     </div>
 
                     <div className="mb-8">
-                        <h3 className="text-[#8B8A6C] font-bold text-[15px] mb-4 flex items-center justify-end gap-2"><Store className="w-5 h-5" /> المتاجر المتوفرة</h3>
-                        <div className="flex flex-wrap justify-end gap-x-5 gap-y-3">
+                        <h3 className="text-[#8B8A6C] font-bold text-[15px] mb-4 flex items-center justify-start gap-2"><Store className="w-5 h-5" /> المتاجر المتوفرة</h3>
+                        <div className="flex flex-wrap justify-center gap-x-5 gap-y-3">
                             {product.stores.map((s, i) => <span key={i} className="text-[#999999] text-[13px] font-medium">{s}</span>)}
                         </div>
                     </div>
 
                     <div className="mb-10">
-                        <h3 className="text-[#8B8A6C] font-bold text-[15px] mb-5 flex items-center justify-end gap-2"><ChevronDown className="w-5 h-5" /> متغيرات المنتج :</h3>
-                        <div className="flex flex-wrap justify-end gap-4">
+                        <h3 className="text-[#8B8A6C] font-bold text-[15px] mb-5 flex items-center justify-start gap-2"><ChevronDown className="w-5 h-5" /> متغيرات المنتج :</h3>
+                        <div className="flex flex-wrap justify-center gap-4">
                             {product.variants.map((v, i) => (
                                 <span key={i} className={`px-8 py-3 rounded-xl text-[13px] font-bold transition-colors ${v.active ? 'bg-[#818063] text-white shadow-md' : 'bg-[#D0CFB3] text-[#777777]'}`}>{v.label}</span>
                             ))}

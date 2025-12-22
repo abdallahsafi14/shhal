@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import NotificationModal from '@/components/features/NotificationModal';
 import FavoritesModal from '@/components/features/FavoritesModal';
+import SearchModal from '@/components/features/SearchModal';
 
 // Custom Icon Components
 function MagnifyingGlassIcon(props) {
@@ -26,6 +27,7 @@ function UserIcon(props) {
 export default function GlobalHeader({ imagePreview }) {
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     // Mock favorites data
     const favorites = [
@@ -33,30 +35,41 @@ export default function GlobalHeader({ imagePreview }) {
             name: "نظارة شمسية",
             currentPrice: "$124.5",
             purchasePrice: "$164.1",
-            image: "/products/camera.jpg", // Using existing placeholder
+            image: "/products/camera.jpg",
             views: "12.1622",
+        }
+    ];
+
+    // Mock search results data
+    const searchResults = [
+        {
+            name: "نظارة شمسية",
+            minPrice: "$124.5",
+            maxPrice: "$164.1",
+            views: "12.1622",
+            image: "/products/camera.jpg",
         },
         {
             name: "نظارة شمسية",
-            currentPrice: "$124.5",
-            purchasePrice: "$164.1",
-            image: "/products/camera.jpg",
+            minPrice: "$124.5",
+            maxPrice: "$164.1",
             views: "12.1622",
+            image: "/products/camera.jpg",
         },
         {
             name: "نظارة شمسية",
-            currentPrice: "$124.5",
-            purchasePrice: "$164.1",
-            image: "/products/camera.jpg",
+            minPrice: "$124.5",
+            maxPrice: "$164.1",
             views: "12.1622",
+            image: "/products/camera.jpg",
         },
         {
             name: "نظارة شمسية",
-            currentPrice: "$124.5",
-            purchasePrice: "$164.1",
-            image: "/products/camera.jpg",
+            minPrice: "$124.5",
+            maxPrice: "$164.1",
             views: "12.1622",
-        },
+            image: "/products/camera.jpg",
+        }
     ];
 
     // Mock notifications data
@@ -74,14 +87,7 @@ export default function GlobalHeader({ imagePreview }) {
             message: 'هذا النص هو مثال لنص يمكن أن يستبدل في نفس المكان لقد تم توليد هذا النص من مولد النص العربى.',
             time: '13 days ago',
             read: false,
-        },
-        {
-            type: 'gift',
-            title: 'مجموعة جديدة - اكتشفها الآن!',
-            message: 'هذا النص هو مثال لنص يمكن أن يستبدل في نفس المكان لقد تم توليد هذا النص من مولد النص العربى.',
-            time: '4 days ago',
-            read: true,
-        },
+        }
     ];
 
     const unreadCount = notifications.filter(n => !n.read).length;
@@ -101,14 +107,15 @@ export default function GlobalHeader({ imagePreview }) {
 
                 {/* Search and User Actions (Left Side in RTL - Second Child) */}
                 <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
-                    {/* Search */}
-                    <div className="relative">
+                    {/* Search Trigger */}
+                    <div className="relative group cursor-pointer" onClick={() => setIsSearchOpen(true)}>
                         <input 
                             type="text" 
+                            readOnly
                             placeholder="ابحث هنا على ما تريد..." 
-                            className="bg-[#F5F5F5] rounded-full py-2.5 px-4 pr-10 pl-4 w-full md:w-64 text-sm text-right focus:outline-none focus:ring-1 focus:ring-[#8B8A6C] transition-all placeholder:text-gray-400"
+                            className="bg-[#F5F5F5] rounded-full py-2.5 px-4 pr-10 pl-4 w-full md:w-64 text-sm text-right focus:outline-none cursor-pointer placeholder:text-gray-400 group-hover:bg-[#f0f0f0] transition-all"
                         />
-                        <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                        <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 group-hover:text-[#8B8A6C] transition-colors" />
                     </div>
 
                     <div className="flex items-center gap-3">
@@ -156,6 +163,12 @@ export default function GlobalHeader({ imagePreview }) {
                 isOpen={isFavoritesOpen}
                 onClose={() => setIsFavoritesOpen(false)}
                 favorites={favorites}
+            />
+
+            <SearchModal
+                isOpen={isSearchOpen}
+                onClose={() => setIsSearchOpen(false)}
+                results={searchResults}
             />
         </>
     );
