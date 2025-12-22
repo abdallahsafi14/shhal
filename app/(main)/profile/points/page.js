@@ -9,7 +9,9 @@ import {
     UserIcon,
     CalendarIcon,
     CheckCircleIcon,
-    DocumentTextIcon
+    DocumentTextIcon,
+    MagnifyingGlassIcon,
+    AdjustmentsHorizontalIcon
 } from '../components/Icons';
 
 export default function PointsPage() {
@@ -310,6 +312,24 @@ export default function PointsPage() {
                         <span className="text-2xl font-bold text-[#8B8A6C]">930</span>
                     </div>
                 </div>
+            </div>
+
+            {/* Search and Filter */}
+            <div className="flex items-center bg-white border border-gray-200 rounded-2xl mb-8 p-1 shadow-sm">
+                <div className="flex-1 relative">
+                    <input 
+                        type="text" 
+                        placeholder="عم تبحث ؟" 
+                        className="w-full bg-transparent border-none py-3 pr-12 pl-4 focus:ring-0 text-sm font-medium text-right text-gray-700 placeholder:text-gray-400"
+                    />
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                        <MagnifyingGlassIcon className="w-5 h-5" />
+                    </div>
+                </div>
+                <div className="w-px h-8 bg-gray-200 mx-1"></div>
+                <button className="p-3 text-gray-500 hover:text-[#07334B] transition-colors">
+                    <AdjustmentsHorizontalIcon className="w-6 h-6" />
+                </button>
             </div>
 
             {/* Transactions Section */}
