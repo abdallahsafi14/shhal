@@ -36,7 +36,7 @@ export default function ProfilePage() {
 
     if (showVerify) {
         return (
-            <div className="animate-in slide-in-from-left-4 duration-500 w-full min-h-[600px] flex flex-col pt-8 px-4">
+            <div className="animate-in slide-in-from-left-4 duration-500 w-full min-h-[600px] flex flex-col  px-4">
                  {/* Back Button */}
                  <div className="w-full flex justify-start ">
                      <button 
@@ -48,17 +48,16 @@ export default function ProfilePage() {
                      </button>
                  </div>
 
-                 <div className="w-full max-w-sm mx-auto flex flex-col items-center text-center">
+                 <div className="w-full justify-center flex flex-col items-center text-center">
                      {/* Icon - Clean & Simple */}
                      <div className="mb-8 relative flex items-center justify-center">
-                         <div className="w-24 h-24 bg-[#EBEBCE] rounded-[2rem] transform rotate-45 shadow-lg flex items-center justify-center mb-4">
-                              <KeyIcon className="w-12 h-12 text-[#8B8A6C] transform -rotate-45" />
-                         </div>
+                        <img src="/icons/Verify-opt.png" alt="Lock" />
                      </div>
 
-                     <h2 className="text-3xl font-extrabold text-[#55493B] mb-3 tracking-wide">التحقق من الكود</h2>
-                     <p className="text-[#888] font-medium mb-12 text-sm leading-relaxed max-w-[280px] mx-auto">قم بإدخال الكود لإكمال العملية والبدء باستخدام التطبيق.</p>
-
+                    <div className="text-right w-100  self-start" >
+                        <h2 className=" text-right text-3xl font-extrabold text-secondary mb-3 tracking-wide">التحقق من الكود</h2>
+                        <p className="text-[#888] font-medium mb-12 text-sm leading-relaxed  mx-auto text-right">قم بإدخال الكود لإكمال العملية والبدء باستخدام التطبيق.</p>
+                    </div>
                      {/* OTP Inputs */}
                      <div className="flex flex-row-reverse gap-3 mb-12 justify-center dir-ltr">
                          {otp.map((data, index) => (
@@ -72,10 +71,10 @@ export default function ProfilePage() {
                                  onChange={e => handleOtpChange(e.target, index)}
                                  onKeyDown={e => handleKeyDown(e, index)}
                                  onFocus={e => e.target.select()}
-                                 className={`w-[60px] h-[72px] md:w-[68px] md:h-[80px] border-[1.5px] rounded-2xl text-center text-3xl font-bold outline-none transition-all duration-200 shadow-sm ${
+                                 className={`w-[70px] h-[70px]  md:w-[90px] md:h-[90px] lg:w-[85px] lg:h-[85px] border-[1.5px] rounded-2xl text-center text-3xl font-bold outline-none transition-all duration-200 shadow-sm ${
                                      data 
-                                     ? 'border-[#07334B] text-[#07334B] bg-white ring-2 ring-[#07334B]/10' 
-                                     : 'border-gray-200 text-gray-400 focus:border-[#07334B] focus:text-[#07334B] bg-[#FAFAFA] focus:bg-white'
+                                     ? 'border-[#07334B] text-[#07334B] bg-transparent ring-2 ' 
+                                     : 'border-gray-200 text-gray-400 focus:border-[#07334B] focus:text-[#07334B] bg-[transparent] focus:bg-white'
                                  }`}
                                  placeholder=""
                              />
@@ -83,7 +82,7 @@ export default function ProfilePage() {
                      </div>
 
                      {/* Resend Link */}
-                     <div className="flex items-center justify-center gap-2 text-sm mb-12 text-gray-400 font-medium">
+                     <div className="flex items-center justify-center gap-2 text-[16px] mb-4 text-gray-400 font-medium">
                          <span>لم استلم أي كود بعد الأن</span>
                          <button className="font-extrabold text-[#07334B] border-b-2 border-[#07334B] pb-0.5 hover:text-[#094260] transition-colors">أعد الإرسال</button>
                      </div>

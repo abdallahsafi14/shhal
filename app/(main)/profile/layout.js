@@ -69,12 +69,12 @@ export default function ProfileLayout({ children }) {
                              
                              <div className="space-y-2 mt-4 dir-ltr">
                                  <div className="flex items-center justify-center gap-2 text-gray-500 text-[13px] font-medium">
-                                     <span>(+44) 20 1234 5629</span>
                                      <PhoneIcon className="w-4 h-4" />
+                                     <span>(+44) 20 1234 5629</span>
                                  </div>
                                  <div className="flex items-center justify-center gap-2 text-gray-500 text-[13px] font-medium">
-                                     <span>thomas.abc.inc@gmail.com</span>
                                      <EnvelopeIcon className="w-4 h-4" />
+                                     <span>thomas.abc.inc@gmail.com</span>
                                  </div>
                              </div>
                          </div>

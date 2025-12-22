@@ -94,7 +94,7 @@ export default function GlobalHeader({ imagePreview }) {
 
     return (
         <>
-            <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-6 mb-12">
+            <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-6 mb-2">
                 {/* Navigation Links (Right Side in RTL - First Child) */}
                 <nav className="flex items-center gap-8 self-end md:self-center">
                     <Link href="/" className="text-[#55493B] font-bold text-lg hover:text-[#07334B] transition-colors">

@@ -54,7 +54,7 @@ export default function ProductCard({ product }) {
         </div>
 
         {/* Price Info */}
-        <div className="space-y-2.5 mb-5">
+        <div className="space-y-2.5 mb-2">
           <div className="flex items-center justify-start gap-2 text-[13px] text-[#777777]">
             <TrendingDown className="w-4 h-4 text-[#8B8A6C]" />
             <span className="text-[#AAAAAA]">أقل سعر :</span>

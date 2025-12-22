@@ -84,7 +84,7 @@ export default function CategoryChips({ categories }) {
           >
             {/* Category Icon */}
             {category.icon && (
-              <div className="w-7 h-7 relative flex-shrink-0">
+              <div className="w-5 h-5 relative flex-shrink-0">
                 <Image
                   src={category.icon}
                   alt={category.name}
