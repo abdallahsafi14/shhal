@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -25,13 +26,17 @@ export default function Login() {
             {/* Right Side - Branding (appears on right in RTL) */}
             <div className="hidden lg:flex lg:w-1/3 bg-[#8B8A6C] items-center justify-center p-12 relative overflow-hidden">
                 
-                <div className="text-center z-10 max-w-md">
+                <div className="text-center z-10 max-w-md flex flex-col items-center">
                     {/* Logo/Brand */}
-                    <h1 className="text-7xl font-bold text-[#07334B] mb-8" style={{ fontFamily: 'serif' }}>
-                        شحال
-                        <div className="text-4xl mt-2 font-light">Shhal</div>
-                    </h1>
-                    
+                    <div className='relative w-[150px] h-[150px] mb-8'>
+                        <Image 
+                            src="/icons/logo.png" 
+                            alt="Logo" 
+                            fill
+                            className="object-contain"
+                            priority
+                        />
+                    </div>
                     {/* Description */}
                     <p className="text-white/90 text-lg leading-relaxed mb-12 font-light">
                         هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى.
@@ -69,40 +74,27 @@ export default function Login() {
             </div>
 
             {/* Left Side - Login Form (appears on left in RTL) */}
-            <div className="flex-1 flex items-center justify-center p-8 bg-white relative overflow-hidden">
+            <div className="flex-1 w-full flex items-center justify-center p-8 bg-white relative overflow-hidden">
                 {/* Decorative curved element */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B8A6C]/10 rounded-full translate-x-32 -translate-y-32 border-2 border-dashed border-[#8B8A6C]/20"></div>
                 <div className="w-full max-w-md relative z-10">
                     {/* Illustration */}
-                    <div className="mb-8 flex justify-center">
-                        <div className="relative">
-                            {/* Laptop illustration */}
-                            <div className="w-48 h-32 border-8 border-[#07334B] rounded-lg relative bg-white">
-                                {/* Screen content - person waving */}
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="text-center">
-                                        {/* Simple person illustration - Fixed colors */}
-                                        <div className="w-16 h-16 rounded-full bg-[#8B8A6C]/30 mx-auto mb-2 relative">
-                                            <div className="absolute top-2 left-4 w-8 h-8 rounded-full bg-[#07334B]/60"></div>
-                                            <div className="absolute top-6 left-3 w-10 h-10 rounded-t-full bg-[#8B8A6C]"></div>
-                                        </div>
-                                        {/* Waving hand */}
-                                        <div className="absolute -top-2 -right-4 text-3xl animate-bounce">👋</div>
-                                    </div>
-                                </div>
-                                {/* Keyboard base */}
-                                <div className="absolute -bottom-2 left-0 right-0 h-2 bg-[#07334B] rounded-b-lg border-t-2 border-[#07334B]"></div>
-                            </div>
-                            {/* Decorative leaves */}
-                            <div className="absolute -right-8 top-8 text-[#8B8A6C]/40 text-4xl">🌿</div>
-                            <div className="absolute -left-8 bottom-4 text-[#8B8A6C]/40 text-3xl">🍃</div>
-                        </div>
+                    <div className="w-full mb-8 flex justify-center">
+                        <Image 
+                            src="/icons/login.png" 
+                            alt="Login Illustration" 
+                            width={0}
+                            height={0}
+                            sizes="100vw"
+                            className="w-[250px] h-auto object-contain"
+                            priority
+                        />
                     </div>
 
                     {/* Form Title */}
                     <div className="text-center mb-8">
-                        <h2 className="text-2xl font-bold text-[#8B8A6C] mb-2">معلومات تسجيل الدخول</h2>
-                        <p className="text-gray-500 text-sm">
+                        <h2 className="text-2xl font-bold text-[#8B8A6C] mb-2 text-right">معلومات تسجيل الدخول</h2>
+                        <p className="text-gray-500 text-sm text-right">
                             أهلاً بعودتك ! من فضلك قم بإدخال بريدك الألكتروني لإتمام العملية بنجاح
                         </p>
                     </div>
@@ -129,7 +121,7 @@ export default function Login() {
                                     required
                                 />
                                 {/* Email Icon */}
-                                <div className={`absolute right-3 top-1/2 -translate-y-1/2 ${error ? 'text-red-500' : 'text-[#8B8A6C]'}`}>
+                                <div className={`absolute right-3 top-1/2 -translate-y-1/2 ${error ? 'text-red-500' : 'text-secondary'}`}>
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>

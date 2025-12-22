@@ -11,7 +11,14 @@ import {
     Heart, 
     MapPin, 
     ChevronDown,
-    Sparkles
+    Sparkles,
+    Package,
+    TrendingUp,
+    TrendingDown,
+    Activity,
+    Maximize2,
+    BarChart3,
+    Files
 } from 'lucide-react';
 import ProductSection from '@/components/features/ProductSection';
 import UpdateProductModal from '@/components/features/UpdateProductModal';
@@ -53,11 +60,13 @@ export default function ProductDetailsPage({ params }) {
             { name: "Amazon", location: "متجر إلكتروني", price: "$123.5" },
         ],
         analysisStats: [
-            { label: 'أعلى سعر :', value: '$1200.72', provider: 'Amazon', color: 'bg-green-50', textColor: 'text-green-600', icon: 'bg-green-500' },
-            { label: 'أقل سعر :', value: '$1200.72', provider: 'Target', color: 'bg-pink-50', textColor: 'text-pink-600', icon: 'bg-pink-500' },
-            { label: 'الانحراف السعري :', value: '$1200.72', provider: 'Shein', color: 'bg-beige-50', textColor: 'text-amber-600', icon: 'bg-amber-500' },
-            { label: 'المدى السعري :', value: '$1200.72', provider: 'Amazon', color: 'bg-yellow-50', textColor: 'text-yellow-600', icon: 'bg-yellow-500' },
-            { label: 'المتوسط السعري :', value: '$1200.72', provider: 'Zara', color: 'bg-gray-50', textColor: 'text-gray-600', icon: 'bg-gray-500' },
+            // Row 1
+            { label: 'أعلى سعر :', value: '$1200.72', provider: 'Amazon', color: 'bg-[#E1FCEF]', iconColor: 'text-[#14B8A6]', icon: TrendingUp },
+            { label: 'أقل سعر :', value: '$1200.72', provider: 'Target', color: 'bg-[#FCE7F3]', iconColor: 'text-[#EC4899]', icon: TrendingDown },
+            { label: 'الانحراف السعري :', value: '$1200.72', provider: 'Shein', color: 'bg-[#FFF7ED]', iconColor: 'text-[#F97316]', icon: Activity },
+            // Row 2
+            { label: 'المدى السعري :', value: '$1200.72', provider: 'Amazon', color: 'bg-[#FEFCE8]', iconColor: 'text-[#EAB308]', icon: Maximize2 },
+            { label: 'المتوسط السعري :', value: '$1200.72', provider: 'Zara', color: 'bg-[#F5F5F5]', iconColor: 'text-[#737373]', icon: BarChart3 },
         ],
         chartData: [
             { name: 'Amazon', price: 150 },
@@ -116,8 +125,7 @@ export default function ProductDetailsPage({ params }) {
 
             {/* Main Product Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-                {/* Right col: Gallery */}
-                <div className="order-1 lg:order-2 flex flex-col gap-5">
+                <div className="order-1 flex flex-col gap-5">
                     {/* Thumbnails */}
                     <div className="flex justify-between gap-3 overflow-x-auto pb-2 scrollbar-hide">
                         {product.images.map((img, i) => (
@@ -133,39 +141,44 @@ export default function ProductDetailsPage({ params }) {
                 </div>
 
                 {/* Left col: Info */}
-                <div className="order-2 lg:order-1 text-right">
+                <div className="order-2 text-right">
                     <h1 className="text-[26px] font-bold text-[#333333] mb-6 leading-tight">{product.name}</h1>
                     <div className="mb-8 space-y-3">
                         <h3 className="text-[#8B8A6C] font-bold text-[15px] flex items-center justify-start gap-2">
-                             <Sparkles className="w-4 h-4" /> وصف المنتج :
+                             <Sparkles className="w-4 h-4" /> 
+                             <span className='text-primary'>وصف المنتج :</span>
                         </h3>
                         <p className="text-[#777777] text-[14px] leading-relaxed max-w-xl ml-auto">{product.description}</p>
                     </div>
 
-                    <div className="flex items-center justify-center gap-10 mb-8 pb-8 border-b border-gray-100">
+                    <div className="flex items-center justify-center gap-10 mb-8 py-4 border-b border-t border-gray-100">
                         <div className="flex items-center gap-2">
-                            <span className="text-[15px] font-bold text-[#555555]">{product.category}</span>
                             <Grid3x3 className="w-5 h-5 text-[#8B8A6C]" />
+                            <span className="text-[15px] font-bold text-[#555555]">{product.category}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className="text-[15px] font-bold text-[#555555]">{product.views}</span>
                             <Eye className="w-5 h-5 text-[#8B8A6C]" />
+                            <span className="text-[15px] font-bold text-[#555555]">{product.views}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className="text-[15px] font-bold text-[#555555]">{product.rating}</span>
                             <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                            <span className="text-[15px] font-bold text-[#555555]">{product.rating}</span>
                         </div>
                     </div>
 
                     <div className="mb-8">
-                        <h3 className="text-[#8B8A6C] font-bold text-[15px] mb-4 flex items-center justify-start gap-2"><Store className="w-5 h-5" /> المتاجر المتوفرة</h3>
+                        <h3 className="text-[#8B8A6C] font-bold text-[15px] mb-4 flex items-center justify-start gap-2"><Store className="w-5 h-5" /> 
+                        <span className='text-primary'>المتاجر المتوفرة :</span>
+                        </h3>
                         <div className="flex flex-wrap justify-center gap-x-5 gap-y-3">
                             {product.stores.map((s, i) => <span key={i} className="text-[#999999] text-[13px] font-medium">{s}</span>)}
                         </div>
                     </div>
 
                     <div className="mb-10">
-                        <h3 className="text-[#8B8A6C] font-bold text-[15px] mb-5 flex items-center justify-start gap-2"><ChevronDown className="w-5 h-5" /> متغيرات المنتج :</h3>
+                        <h3 className="text-[#8B8A6C] font-bold text-[15px] mb-5 flex items-center justify-start gap-2"><Package className="w-5 h-5" /> 
+                        <span className='text-primary'>متغيرات المنتج :</span>
+                         </h3>
                         <div className="flex flex-wrap justify-center gap-4">
                             {product.variants.map((v, i) => (
                                 <span key={i} className={`px-8 py-3 rounded-xl text-[13px] font-bold transition-colors ${v.active ? 'bg-[#818063] text-white shadow-md' : 'bg-[#D0CFB3] text-[#777777]'}`}>{v.label}</span>
@@ -176,7 +189,7 @@ export default function ProductDetailsPage({ params }) {
                     <div className="flex items-center justify-end gap-5">
                         <button 
                             onClick={() => setIsUpdateModalOpen(true)}
-                            className="flex-1 max-w-[380px] bg-[#07334B] text-white font-bold py-4 rounded-xl hover:bg-[#0a4566] transition-all text-[16px] shadow-lg shadow-[#07334B]/20"
+                            className="flex-1 bg-[#07334B] text-white font-bold py-4 rounded-xl hover:bg-[#0a4566] transition-all text-[16px] shadow-lg shadow-[#07334B]/20"
                         >
                             تحديث المنتج
                         </button>
@@ -287,18 +300,21 @@ export default function ProductDetailsPage({ params }) {
                     <div>
                         <h3 className="text-lg font-bold text-[#333333] mb-6 text-right">: التحليلات والإحصائيات</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {product.analysisStats.map((stat, i) => (
-                                <div key={i} className={`${stat.color} rounded-3xl p-6 flex flex-col items-end text-right border border-white relative overflow-hidden`}>
-                                    <div className="flex items-center gap-2 mb-4">
-                                        <span className={`text-sm font-bold ${stat.textColor}`}>{stat.label}</span>
-                                        <div className={`w-8 h-8 rounded-lg ${stat.icon} flex items-center justify-center`}><Sparkles className="w-4 h-4 text-white" /></div>
+                            {product.analysisStats.map((stat, i) => {
+                                const Icon = stat.icon;
+                                return (
+                                    <div key={i} className={`${stat.color} rounded-2xl p-6 flex flex-col items-start justify-start text-right gap-4 border border-white relative overflow-hidden`}>
+                                        <div className="flex items-center justify-start gap-2">
+                                            <Icon className={`w-5 h-5 ${stat.iconColor}`} />
+                                            <span className="text-[15px] font-bold text-[#555555]">{stat.label}</span>
+                                        </div>
+                                        <div className="flex  items-center justify-start text-right w-100  gap-1 ">
+                                            <span className="text-[19px] font-bold text-[#333333]" dir="ltr">{stat.value}</span>
+                                             <span className="text-sm text-[#777777] font-medium" dir="ltr">({stat.provider})</span>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center justify-between w-full">
-                                        <span className="text-xl font-bold text-[#333333]">{stat.value}</span>
-                                        <span className="text-sm text-[#999999] font-medium">({stat.provider})</span>
-                                    </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
 
@@ -341,19 +357,25 @@ export default function ProductDetailsPage({ params }) {
             {activeTab === 'price-comparison' && (
                 <div className="bg-[#FFFFFF] border border-gray-50 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+                        <h2 className="text-lg font-bold text-[#07334B]">12 من المتاجر يتوفر بها المنتج</h2>
                         <div className="flex items-center gap-4 bg-[#F9F9F9] p-2 px-4 rounded-full border">
                             <span className="text-xs font-bold">الأسعار من الأقل للأعلى</span>
                             <ChevronDown className="w-4 h-4" />
                         </div>
-                        <h2 className="text-lg font-bold text-[#07334B]">12 من المتاجر يتوفر بها المنتج</h2>
                     </div>
                     <div className="space-y-10">
                         {product.comparisonStores.map((s, i) => (
-                            <div key={i} className="flex flex-col md:flex-row items-center justify-between pb-8 border-b last:border-0">
-                                <div className="text-xl font-bold text-[#07334B]">{s.price}</div>
-                                <div className="text-right space-y-2">
-                                    <div className="flex items-center justify-end gap-2 text-sm font-bold">{s.name} <Store className="w-4 h-4 text-[#8B8A6C]" /></div>
-                                    <div className="flex items-center justify-end gap-2 text-[13px] text-[#777777]">{s.location} <MapPin className="w-4 h-4 text-[#8B8A6C]" /></div>
+                            <div key={i} className="flex flex-col md:flex-row items-center justify-between pb-6 border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors p-4 rounded-xl">
+                                <div className="text-[19px] font-bold text-[#07334B]" dir="ltr">{s.price}</div>
+                                <div className="text-right space-y-1.5 flex flex-col items-end">
+                                    <div className="flex items-center gap-2 text-[15px] font-bold text-[#333333]">
+                                        {s.name} 
+                                        <Store className="w-4 h-4 text-[#8B8A6C]" />
+                                    </div>
+                                    <div className="flex items-center gap-2 text-[13px] text-[#777777]">
+                                        {s.location} 
+                                        <MapPin className="w-4 h-4 text-[#8B8A6C]" />
+                                    </div>
                                 </div>
                             </div>
                         ))}

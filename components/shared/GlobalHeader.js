@@ -122,7 +122,7 @@ export default function GlobalHeader({ imagePreview }) {
                         {/* Favorites Button */}
                         <button 
                             onClick={() => setIsFavoritesOpen(true)}
-                            className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors"
+                            className="w-10 h-10 rounded-full bg-[#8B8A6C1A] flex items-center justify-center text-secondary hover:text-red-500 transition-colors"
                         >
                             <HeartIcon className="w-5 h-5" />
                         </button>
@@ -130,7 +130,7 @@ export default function GlobalHeader({ imagePreview }) {
                         {/* Notification Button */}
                         <button 
                             onClick={() => setIsNotificationOpen(true)}
-                            className="relative w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-gray-400 hover:text-[#07334B] transition-colors"
+                            className="relative w-10 h-10 rounded-full bg-[#8B8A6C1A] flex items-center justify-center text-secondary hover:text-[#07334B] transition-colors"
                         >
                             <BellIcon className="w-5 h-5" />
                             {unreadCount > 0 && (

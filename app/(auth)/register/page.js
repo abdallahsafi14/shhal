@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Register() {
     const [formData, setFormData] = useState({
@@ -25,12 +26,17 @@ export default function Register() {
             {/* Right Side - Branding (appears on right in RTL) */}
             <div className="hidden lg:flex lg:w-1/3 bg-[#8B8A6C] items-center justify-center p-12 relative overflow-hidden">
                 
-                <div className="text-center z-10 max-w-md">
+                <div className="text-center z-10 max-w-md flex flex-col items-center">
                     {/* Logo/Brand */}
-                    <h1 className="text-7xl font-bold text-[#07334B] mb-8" style={{ fontFamily: 'serif' }}>
-                        شحال
-                        <div className="text-4xl mt-2 font-light">Shhal</div>
-                    </h1>
+                    <div className='relative w-[150px] h-[150px] mb-8'>
+                        <Image 
+                            src="/icons/logo.png" 
+                            alt="Logo" 
+                            fill
+                            className="object-contain"
+                            priority
+                        />
+                    </div>
                     
                     {/* Description */}
                     <p className="text-white/90 text-lg leading-relaxed mb-12 font-light">
@@ -75,29 +81,16 @@ export default function Register() {
                 
                 <div className="w-full max-w-xl relative z-10">
                     {/* Illustration */}
-                    <div className="mb-8 flex justify-center">
-                        <div className="relative">
-                            {/* Laptop illustration */}
-                            <div className="w-48 h-32 border-8 border-[#07334B] rounded-lg relative bg-white">
-                                {/* Screen content - person waving */}
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="text-center">
-                                        {/* Simple person illustration - Fixed colors */}
-                                        <div className="w-16 h-16 rounded-full bg-[#8B8A6C]/30 mx-auto mb-2 relative">
-                                            <div className="absolute top-2 left-4 w-8 h-8 rounded-full bg-[#07334B]/60"></div>
-                                            <div className="absolute top-6 left-3 w-10 h-10 rounded-t-full bg-[#8B8A6C]"></div>
-                                        </div>
-                                        {/* Waving hand */}
-                                        <div className="absolute -top-2 -right-4 text-3xl animate-bounce">👋</div>
-                                    </div>
-                                </div>
-                                {/* Keyboard base */}
-                                <div className="absolute -bottom-2 left-0 right-0 h-2 bg-[#07334B] rounded-b-lg border-t-2 border-[#07334B]"></div>
-                            </div>
-                            {/* Decorative leaves */}
-                            <div className="absolute -right-8 top-8 text-[#8B8A6C]/40 text-4xl">🌿</div>
-                            <div className="absolute -left-8 bottom-4 text-[#8B8A6C]/40 text-3xl">🍃</div>
-                        </div>
+                    <div className="w-full mb-8 flex justify-center">
+                        <Image 
+                            src="/icons/login.png" 
+                            alt="Login Illustration" 
+                            width={0}
+                            height={0}
+                            sizes="100vw"
+                            className="w-[250px] h-auto object-contain"
+                            priority
+                        />
                     </div>
 
                     {/* Form Title */}
@@ -125,7 +118,7 @@ export default function Register() {
                                         placeholder="أدخل الاسم الأول لك هنا"
                                         className="w-full rounded-md border border-gray-200 bg-white pr-10 pl-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#07334B] focus:border-transparent text-right"
                                     />
-                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary">
                                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                             <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                                         </svg>
@@ -147,7 +140,7 @@ export default function Register() {
                                         placeholder="أدخل الاسم الأخير لك هنا"
                                         className="w-full rounded-md border border-gray-200 bg-white pr-10 pl-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#07334B] focus:border-transparent text-right"
                                     />
-                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary">
                                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                             <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                                         </svg>
@@ -169,7 +162,7 @@ export default function Register() {
                                         placeholder="أدخل رقم هاتفك هنا"
                                         className="w-full rounded-md border border-gray-200 bg-white pr-10 pl-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#07334B] focus:border-transparent text-right"
                                     />
-                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary">
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                         </svg>
@@ -195,7 +188,7 @@ export default function Register() {
                                             if (!e.target.value) e.target.type = 'text';
                                         }}
                                     />
-                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary">
                                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                             <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                                         </svg>
