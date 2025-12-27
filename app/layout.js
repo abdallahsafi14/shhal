@@ -1,8 +1,8 @@
 import "./globals.css";
-// import Providers from "./providers"; // If you created this earlier
+import Providers from "@/components/shared/Providers";
 
 export const metadata = {
-  title: "Shhal",
+  title: "Shhal | شحال",
   description: "Community pricing platform",
 };
 
@@ -10,9 +10,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl">
       <body>
-         {/* <Providers> */}
-          {children}
-         {/* </Providers> */}
+          <Providers>
+            {children}
+          </Providers>
       </body>
     </html>
   );

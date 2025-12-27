@@ -3,6 +3,7 @@ import Link from 'next/link';
 import NotificationModal from '@/components/features/NotificationModal';
 import FavoritesModal from '@/components/features/FavoritesModal';
 import SearchModal from '@/components/features/SearchModal';
+import { useAuth } from '@/hooks/useAuth';
 
 // Custom Icon Components
 function MagnifyingGlassIcon(props) {
@@ -25,9 +26,11 @@ function UserIcon(props) {
  * GlobalHeader - Shared header component with navigation, search, and user actions
  */
 export default function GlobalHeader({ imagePreview }) {
+    const { user } = useAuth();
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+
 
     // Mock favorites data
     const favorites = [
@@ -139,14 +142,15 @@ export default function GlobalHeader({ imagePreview }) {
                         </button>
                         
                         <Link href="/profile" className="w-10 h-10 rounded-full overflow-hidden border border-gray-100 flex-shrink-0">
-                            {imagePreview ? (
-                                <img src={imagePreview} alt="User" className="w-full h-full object-cover" />
+                            {user?.avatar || imagePreview ? (
+                                <img src={user?.avatar || imagePreview} alt="User" className="w-full h-full object-cover" />
                             ) : (
                                 <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                                     <UserIcon className="w-6 h-6 text-gray-400" />
                                 </div>
                             )}
                         </Link>
+
                     </div>
                 </div>
             </div>

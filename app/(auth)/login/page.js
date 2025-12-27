@@ -3,23 +3,21 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Login() {
     const [email, setEmail] = useState('');
-    const [error, setError] = useState(false);
+    const { login, isLoggingIn } = useAuth();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle login logic here
-        console.log('Login with:', email);
-        // Simulate error
-        setError(true);
+        login({ email });
     };
 
     const handleChange = (e) => {
         setEmail(e.target.value);
-        if (error) setError(false);
     };
+
 
     return (
         <div className="min-h-screen flex" dir="rtl">
@@ -113,34 +111,25 @@ export default function Login() {
                                     value={email}
                                     onChange={handleChange}
                                     placeholder="أكتب البريد الإلكتروني هنا من فضلك"
-                                    className={`w-full rounded-md border bg-white pr-10 pl-3 py-2 text-sm text-right focus:outline-none focus:ring-2 focus:border-transparent transition-colors ${
-                                        error 
-                                        ? 'border-red-400 text-red-500 placeholder:text-red-300 focus:ring-red-500/20' 
-                                        : 'border-gray-200 text-gray-800 placeholder:text-gray-400 focus:ring-[#07334B]'
-                                    }`}
+                                    className={`w-full rounded-md border bg-white pr-10 pl-3 py-2 text-sm text-right focus:outline-none focus:ring-2 focus:border-transparent transition-colors border-gray-200 text-gray-800 placeholder:text-gray-400 focus:ring-[#07334B]`}
                                     required
                                 />
                                 {/* Email Icon */}
-                                <div className={`absolute right-3 top-1/2 -translate-y-1/2 ${error ? 'text-red-500' : 'text-secondary'}`}>
+                                <div className={`absolute right-3 top-1/2 -translate-y-1/2 text-secondary`}>
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
                                 </div>
                             </div>
-                            {/* Error Message */}
-                            {error && (
-                                <p className="text-red-500 text-xs mt-2 text-right">
-                                    البريد الألكتروني غير صالح , قم بالتأكد منه مرة أخرى
-                                </p>
-                            )}
                         </div>
 
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full bg-[#07334B] text-white py-3 rounded-lg font-medium hover:bg-[#07334B]/90 transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                            disabled={isLoggingIn}
+                            className="w-full bg-[#07334B] text-white py-3 rounded-lg font-medium hover:bg-[#07334B]/90 transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            تسجيل الدخول
+                            {isLoggingIn ? 'جاري التحميل...' : 'تسجيل الدخول'}
                         </button>
 
                         {/* Register Link */}

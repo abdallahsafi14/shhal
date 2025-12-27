@@ -32,16 +32,25 @@ import {
     ReferenceLine
 } from 'recharts';
 
+import { useQuery } from '@tanstack/react-query';
+import { ProductService } from '@/services/products.service';
+
 /**
  * ProductDetailsPage - Displays detailed information about a product
  */
 export default function ProductDetailsPage({ params }) {
+    const { id } = params;
     const router = useRouter();
     const [activeTab, setActiveTab] = useState('price-analysis');
     const [selectedImage, setSelectedImage] = useState(0);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
-    const product = {
+    const { data: productData, isLoading } = useQuery({
+        queryKey: ['product', id],
+        queryFn: () => ProductService.getById(id),
+    });
+
+    const product = productData || {
         name: "ساعة ذكية بمواصفات خارقة",
         description: "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المكان، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.",
         rating: 4.7,
@@ -79,6 +88,15 @@ export default function ProductDetailsPage({ params }) {
             { name: 'Nick', price: 100 },
         ]
     };
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#07334B]"></div>
+            </div>
+        );
+    }
+
 
     const similarProducts = Array(8).fill({
         name: "كاميرا التصوير",

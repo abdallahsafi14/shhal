@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Register() {
+    const { register, isRegistering } = useAuth();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -18,8 +20,9 @@ export default function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Registering:', formData);
+        register(formData);
     };
+
 
     return (
         <div className="min-h-screen flex" dir="rtl">
@@ -200,10 +203,12 @@ export default function Register() {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full bg-[#07334B] text-white py-3 rounded-lg font-medium hover:bg-[#07334B]/90 transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] mt-8"
+                            disabled={isRegistering}
+                            className="w-full bg-[#07334B] text-white py-3 rounded-lg font-medium hover:bg-[#07334B]/90 transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            أنشأ حساب
+                            {isRegistering ? 'جاري التحميل...' : 'أنشأ حساب'}
                         </button>
+
                     </form>
                 </div>
             </div>

@@ -1,30 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Search, SlidersHorizontal, Trash2, ChevronLeft } from 'lucide-react';
 import SearchFilterModal from './SearchFilterModal';
+import { useQuery } from '@tanstack/react-query';
+import { ProductService } from '@/services/products.service';
+import { useDebounce } from '@/hooks/useDebounce';
+import { useRouter } from 'next/navigation';
 
-/**
- * SearchModal - Displays search results in a modal overlay
- * Matches the design from the mockup precisely
- */
-export default function SearchModal({ isOpen, onClose, results = [] }) {
+export default function SearchModal({ isOpen, onClose }) {
+  const router = useRouter();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const debouncedSearch = useDebounce(searchQuery, 500);
+
+  const { data: searchResults, isLoading } = useQuery({
+    queryKey: ['products', { search: debouncedSearch }],
+    queryFn: () => ProductService.getAll({ search: debouncedSearch }),
+    enabled: debouncedSearch.length > 2,
+  });
+
+  const results = searchResults?.data || [];
   
   // Mock search history data
   const [searchHistory, setSearchHistory] = useState([
-    { id: 1, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
-    { id: 2, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
-    { id: 3, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
-    { id: 4, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
-    { id: 5, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
-    { id: 6, text: 'نظارة شمسية', category: 'الفئة : موبايلات&تابلت', image: '/products/camera.jpg' },
+    { id: 1, text: 'نظارة شمسية', category: 'الفئة : موبايلات & تابلت', image: '/products/camera.jpg' },
+    { id: 2, text: 'نظارة شمسية', category: 'الفئة : موبايلات & تابلت', image: '/products/camera.jpg' },
+    { id: 3, text: 'نظارة شمسية', category: 'الفئة : موبايلات & تابلت', image: '/products/camera.jpg' },
   ]);
 
   const deleteHistoryItem = (id) => {
     setSearchHistory(searchHistory.filter(item => item.id !== id));
   };
+
 
   if (!isOpen) return null;
 
@@ -97,6 +105,10 @@ export default function SearchModal({ isOpen, onClose, results = [] }) {
                   {searchHistory.map((item) => (
                     <div
                       key={item.id}
+                      onClick={() => {
+                        onClose();
+                        router.push(`/products/${item.id}`);
+                      }}
                       className="bg-white rounded-2xl p-4 border border-gray-100 hover:shadow-md transition-all duration-200 cursor-pointer group relative"
                     >
                       {/* Delete Button */}
@@ -136,10 +148,17 @@ export default function SearchModal({ isOpen, onClose, results = [] }) {
                     </div>
                   ))}
                 </div>
+              ) : isLoading ? (
+                /* Loading State */
+                <div className="py-16 flex flex-col items-center justify-center gap-4">
+                  <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#07334B]"></div>
+                  <p className="text-sm text-gray-400">جاري البحث...</p>
+                </div>
               ) : results.length === 0 ? (
                 /* Empty State (When searching but no results) */
                 <div className="py-16 px-8 text-center flex flex-col items-center animate-in fade-in duration-500">
                   <div className="relative w-48 h-48 mb-8 scale-110">
+
                     <div className="absolute inset-0 bg-gray-50 rounded-full opacity-50" />
                     <svg viewBox="0 0 200 200" className="w-full h-full text-gray-200">
                       {/* Abstract Background Shapes */}
@@ -169,10 +188,20 @@ export default function SearchModal({ isOpen, onClose, results = [] }) {
                   </div>
                   {results.map((product, index) => (
                     <div
-                      key={index}
+                      key={product.id || index}
+                      onClick={() => {
+                        onClose();
+                        router.push(`/products/${product.id}`);
+                      }}
                       className="bg-[#F9F9F9] rounded-2xl p-4 border border-gray-50 hover:shadow-md transition-all duration-200 cursor-pointer group relative"
                     >
-                      <button className="absolute top-4 left-4 w-5 h-5 rounded-full border border-red-400 flex items-center justify-center bg-white group-hover:bg-red-50 transition-colors">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Handle remove from history or similar if needed
+                        }}
+                        className="absolute top-4 left-4 w-5 h-5 rounded-full border border-red-400 flex items-center justify-center bg-white group-hover:bg-red-50 transition-colors"
+                      >
                         <X className="w-3 h-3 text-red-500 stroke-[3px]" />
                       </button>
 
@@ -183,20 +212,20 @@ export default function SearchModal({ isOpen, onClose, results = [] }) {
                           </h3>
                           <div className="space-y-1">
                             <div className="flex items-center justify-end gap-1 text-[12px] text-[#777777]">
-                              <span className="font-bold text-[#8B8A6C]">{product.minPrice}</span>
+                              <span className="font-bold text-[#8B8A6C]">{product.minPrice || product.price}</span>
                               <span>أقل سعر :</span>
                             </div>
                             <div className="flex items-center justify-end gap-1 text-[12px] text-[#777777]">
-                              <span className="font-bold">{product.maxPrice}</span>
+                              <span className="font-bold">{product.maxPrice || product.price}</span>
                               <span>أعلى سعر :</span>
                             </div>
                             <div className="flex items-center justify-end gap-1 text-[12px] text-[#777777]">
-                              <span>{product.views}</span>
+                              <span>{product.views || 0}</span>
                               <span>عدد المشاهدين :</span>
                             </div>
                           </div>
                           <div className="text-[11px] text-[#999999]">
-                            المتاجر : Shein , Trendyol , Zara , Noon
+                            المتاجر : {product.stores?.join(' , ') || 'غير محدد'}
                           </div>
                         </div>
 
@@ -210,6 +239,7 @@ export default function SearchModal({ isOpen, onClose, results = [] }) {
                       </div>
                     </div>
                   ))}
+
                 </div>
               )}
             </div>

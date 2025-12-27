@@ -1,11 +1,44 @@
-'use client';
-import { useState } from 'react';
+"use client";
+import { useState, useEffect } from 'react';
 import { UserIcon, PhoneIcon, EnvelopeIcon, KeyIcon, PencilIcon, ArrowLeftIcon } from './components/Icons';
+import { useAuth } from '@/hooks/useAuth';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { UserService } from '@/services/user.service';
+import { toast } from 'sonner';
 
 export default function ProfilePage() {
+    const { user, verifyOtp, isVerifying, resendOtp, isResending } = useAuth();
+    const queryClient = useQueryClient();
+    
     // State for Verification View
     const [showVerify, setShowVerify] = useState(false);
     const [otp, setOtp] = useState(['', '', '', '', '']);
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: ''
+    });
+
+    useEffect(() => {
+        if (user) {
+            setFormData({
+                firstName: user.firstName || user.name?.split(' ')[0] || '',
+                lastName: user.lastName || user.name?.split(' ')[1] || '',
+                email: user.email || '',
+                phone: user.phone || ''
+            });
+        }
+    }, [user]);
+
+    const updateProfileMutation = useMutation({
+        mutationFn: UserService.updateProfile,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['user'] });
+            toast.success('تم تحديث الملف الشخصي بنجاح');
+            setShowVerify(true); // Assuming API requires verification after update
+        }
+    });
 
     // Handle OTP Input
     const handleOtpChange = (element, index) => {
@@ -22,10 +55,10 @@ export default function ProfilePage() {
 
         // Auto-submit when filled
         if (newOtp.every(digit => digit !== '') && index === 4) {
-            // Simulate submit
-            console.log("Auto submitting with code:", newOtp.join(''));
+            verifyOtp({ code: newOtp.join('') });
         }
     };
+
 
     // Handle Backspace
     const handleKeyDown = (e, index) => {
@@ -84,12 +117,23 @@ export default function ProfilePage() {
                      {/* Resend Link */}
                      <div className="flex items-center justify-center gap-2 text-[16px] mb-4 text-gray-400 font-medium">
                          <span>لم استلم أي كود بعد الأن</span>
-                         <button className="font-extrabold text-[#07334B] border-b-2 border-[#07334B] pb-0.5 hover:text-[#094260] transition-colors">أعد الإرسال</button>
+                         <button 
+                            type="button"
+                            onClick={() => resendOtp()}
+                            disabled={isResending}
+                            className="font-extrabold text-[#07334B] border-b-2 border-[#07334B] pb-0.5 hover:text-[#094260] transition-colors disabled:opacity-50"
+                         >
+                             {isResending ? 'جاري الإرسال...' : 'أعد الإرسال'}
+                         </button>
                      </div>
 
                      {/* Submit Button */}
-                     <button className="w-full bg-[#07334B] text-white font-bold py-4 rounded-xl hover:bg-[#094260] transition-colors shadow-lg text-lg">
-                         التحقق من الكود
+                     <button 
+                        onClick={() => verifyOtp({ code: otp.join('') })}
+                        disabled={isVerifying}
+                        className="w-full bg-[#07334B] text-white font-bold py-4 rounded-xl hover:bg-[#094260] transition-colors shadow-lg text-lg disabled:opacity-50"
+                     >
+                         {isVerifying ? 'جاري التحقق...' : 'التحقق من الكود'}
                      </button>
                  </div>
             </div>
@@ -106,14 +150,19 @@ export default function ProfilePage() {
                  {/* Placeholder for potential secondary action or removed duplicate */}
             </div>
 
-            <form className="space-y-6 max-w-2xl mx-auto md:ml-auto md:mr-0 text-right dir-rtl" onSubmit={(e) => { e.preventDefault(); setShowVerify(true); }}>
+            <form className="space-y-6 max-w-2xl mx-auto md:ml-auto md:mr-0 text-right dir-rtl" onSubmit={(e) => { 
+                e.preventDefault(); 
+                updateProfileMutation.mutate(formData);
+            }}>
                 {/* First Name */}
                 <div className="space-y-2">
                     <div className="relative group">
                         <input 
                             type="text" 
-                            defaultValue="وداد"
+                            value={formData.firstName}
+                            onChange={(e) => setFormData({...formData, firstName: e.target.value})}
                             className="w-full bg-white border border-gray-100 rounded-xl py-4 px-4 pr-12 text-[#07334B] font-bold text-right focus:outline-none focus:border-[#07334B] transition-all shadow-sm"
+                            required
                         />
                          <div className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-400">
                             <UserIcon className="w-5 h-5" />
@@ -127,8 +176,10 @@ export default function ProfilePage() {
                     <div className="relative group">
                         <input 
                             type="text" 
-                            defaultValue="جولاق"
+                            value={formData.lastName}
+                            onChange={(e) => setFormData({...formData, lastName: e.target.value})}
                             className="w-full bg-white border border-gray-100 rounded-xl py-4 px-4 pr-12 text-[#07334B] font-bold text-right focus:outline-none focus:border-[#07334B] transition-all shadow-sm"
+                            required
                         />
                          <div className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-400">
                             <UserIcon className="w-5 h-5" />
@@ -142,8 +193,10 @@ export default function ProfilePage() {
                     <div className="relative group">
                         <input 
                             type="email" 
-                            defaultValue="wedadjoulaf@gmail.com"
+                            value={formData.email}
+                            onChange={(e) => setFormData({...formData, email: e.target.value})}
                             className="w-full bg-white border border-gray-100 rounded-xl py-4 px-4 pr-12 text-[#555] font-medium text-right focus:outline-none focus:border-[#07334B] transition-all shadow-sm"
+                            required
                         />
                         <div className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-400">
                             <EnvelopeIcon className="w-5 h-5" />
@@ -157,8 +210,10 @@ export default function ProfilePage() {
                     <div className="relative group">
                         <input 
                             type="tel" 
-                            defaultValue="0983735861"
+                            value={formData.phone}
+                            onChange={(e) => setFormData({...formData, phone: e.target.value})}
                             className="w-full bg-white border border-gray-100 rounded-xl py-4 px-4 pr-12 text-[#555] font-bold text-right focus:outline-none focus:border-[#07334B] transition-all shadow-sm"
+                            required
                         />
                          <div className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-400">
                             <PhoneIcon className="w-5 h-5" />
@@ -171,10 +226,10 @@ export default function ProfilePage() {
                 <div className="pt-8">
                      <button 
                         type="submit" 
-                        onClick={() => setShowVerify(true)}
-                        className="w-full bg-[#07334B] text-white font-bold py-4 rounded-xl hover:bg-[#094260] transition-colors shadow-lg text-lg"
+                        disabled={updateProfileMutation.isPending}
+                        className="w-full bg-[#07334B] text-white font-bold py-4 rounded-xl hover:bg-[#094260] transition-colors shadow-lg text-lg disabled:opacity-50"
                      >
-                         حفظ التعديلات
+                         {updateProfileMutation.isPending ? 'جاري الحفظ...' : 'حفظ التعديلات'}
                      </button>
                 </div>
             </form>

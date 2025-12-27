@@ -3,13 +3,13 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Verify() {
     // State for 5-digit OTP
     const [otp, setOtp] = useState(['', '', '', '', '']);
     const inputRefs = useRef([]);
-
-    const [error, setError] = useState(false);
+    const { verifyOtp, isVerifying, resendOtp, isResending } = useAuth();
 
     // Initialize refs array and focus first input
     useEffect(() => {
@@ -20,19 +20,17 @@ export default function Verify() {
         }
     }, []);
 
-    const verifyOtp = (code) => {
-        console.log('Verifying OTP:', code);
-        // Simulating error for demonstration
-        setError(true);
+    const handleVerify = (code) => {
+        verifyOtp({ code });
     };
+
 
     const handleChange = (index, value) => {
         // Only allow numbers
         if (value && !/^\d+$/.test(value)) return;
         
-        // Clear error on user interaction
-        if (error) setError(false);
-
+        // Clear error logic removed as handled globally
+        
         const newOtp = [...otp];
         newOtp[index] = value;
         setOtp(newOtp);
@@ -47,7 +45,7 @@ export default function Verify() {
                 if (isComplete) {
                     // Remove focus from input to prevent double typing or keyboard issues
                     inputRefs.current[index].blur();
-                    verifyOtp(newOtp.join(''));
+                    handleVerify(newOtp.join(''));
                 }
             }
         }
@@ -75,14 +73,14 @@ export default function Verify() {
                 inputRefs.current[pastedData.length].focus();
             } else {
                 inputRefs.current[4].blur();
-                verifyOtp(newOtp.join(''));
+                handleVerify(newOtp.join(''));
             }
         }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        verifyOtp(otp.join(''));
+        handleVerify(otp.join(''));
     };
 
     return (
@@ -178,36 +176,32 @@ export default function Verify() {
                                     onChange={(e) => handleChange(index, e.target.value)}
                                     onKeyDown={(e) => handleKeyDown(index, e)}
                                     onPaste={handlePaste}
-                                    className={`w-16 h-16 rounded-xl border-2 text-center text-2xl font-semibold focus:outline-none transition-all duration-300 bg-white text-gray-800 ${
-                                        error 
-                                        ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-500/20' 
-                                        : 'border-gray-200 focus:border-[#07334B] focus:ring-2 focus:ring-[#07334B]/20'
-                                    }`}
+                                    className={`w-16 h-16 rounded-xl border-2 text-center text-2xl font-semibold focus:outline-none transition-all duration-300 bg-white text-gray-800 border-gray-200 focus:border-[#07334B] focus:ring-2 focus:ring-[#07334B]/20`}
                                     required
                                 />
                             ))}
                         </div>
 
-                        {/* Error Message */}
-                        {error && (
-                            <div className="text-center text-red-500 text-sm font-medium animate-pulse">
-                                الكود خاطئ , حاول مرة أخرى
-                            </div>
-                        )}
 
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full bg-[#07334B] text-white py-3 rounded-lg font-medium hover:bg-[#07334B]/90 transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                            disabled={isVerifying}
+                            className="w-full bg-[#07334B] text-white py-3 rounded-lg font-medium hover:bg-[#07334B]/90 transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            التحقق من الكود
+                            {isVerifying ? 'جاري التحقق...' : 'التحقق من الكود'}
                         </button>
 
                         {/* Resend Link */}
                         <div className="text-center text-sm text-gray-500">
                              لم استلم أي كود بعد الأن{' '}
-                            <button type="button" className="text-[#07334B] hover:underline font-bold">
-                                أعد الإرسال
+                            <button 
+                                type="button" 
+                                onClick={() => resendOtp()}
+                                disabled={isResending}
+                                className="text-[#07334B] hover:underline font-bold disabled:opacity-50"
+                            >
+                                {isResending ? 'جاري الإرسال...' : 'أعد الإرسال'}
                             </button>
                         </div>
                     </form>
