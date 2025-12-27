@@ -46,7 +46,7 @@ export default function CategoriesPage() {
     return (
         <div className="max-w-[1200px] mx-auto pb-20">
             {/* Back Button */}
-            <div className="flex justify-end mb-8">
+            <div className="flex justify-start mb-8">
                 <button 
                     onClick={() => router.back()}
                     className="flex items-center gap-2 text-[#55493B] font-bold hover:text-[#07334B] transition-colors"

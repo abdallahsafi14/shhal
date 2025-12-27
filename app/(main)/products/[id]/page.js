@@ -135,7 +135,7 @@ export default function ProductDetailsPage({ params }) {
     return (
         <div className="max-w-[1200px] mx-auto pb-20 px-4 md:px-0">
             {/* Back Button */}
-            <div className="flex justify-end mb-8">
+            <div className="flex justify-start mb-8">
                 <button onClick={() => router.back()} className="flex items-center gap-2 text-[#55493B] font-bold hover:text-[#07334B] transition-colors text-[15px]">
                     الرجوع للخلف <ArrowLeft className="w-5 h-5" />
                 </button>
@@ -160,7 +160,7 @@ export default function ProductDetailsPage({ params }) {
 
                 {/* Left col: Info */}
                 <div className="order-2 text-right">
-                    <h1 className="text-[26px] font-bold text-[#333333] mb-6 leading-tight">{product.name}</h1>
+                    <h1 className="text-[16px] font-bold text-[#333333] mb-6 leading-tight">{product.name}</h1>
                     <div className="mb-8 space-y-3">
                         <h3 className="text-[#8B8A6C] font-bold text-[15px] flex items-center justify-start gap-2">
                              <Sparkles className="w-4 h-4" /> 
@@ -204,14 +204,14 @@ export default function ProductDetailsPage({ params }) {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-end gap-5">
+                    <div className="flex items-center justify-end gap-4">
                         <button 
                             onClick={() => setIsUpdateModalOpen(true)}
                             className="flex-1 bg-[#07334B] text-white font-bold py-4 rounded-xl hover:bg-[#0a4566] transition-all text-[16px] shadow-lg shadow-[#07334B]/20"
                         >
                             تحديث المنتج
                         </button>
-                        <button className="w-16 h-16 rounded-xl bg-[#EBECF0] flex items-center justify-center text-[#07334B] hover:text-red-500 transition-all border border-gray-100">
+                        <button className="w-22 h-16 rounded-xl bg-[#EBECF0] flex items-center justify-center text-[#07334B] hover:text-red-500 transition-all border border-gray-100">
                             <Heart className="w-7 h-7" />
                         </button>
                     </div>
@@ -232,7 +232,7 @@ export default function ProductDetailsPage({ params }) {
 
             {/* Tab Content: Reviews */}
             {activeTab === 'reviews' && (
-                <div className="flex flex-col lg:flex-row gap-20">
+                <div className="flex flex-col items-center lg:flex-row gap-20">
                      {/* Right Side: Rating Summary (Second Child = Right in RTL) */}
                     <div className="w-full lg:w-[400px] space-y-8 order-1">
                         <h3 className="text-xl font-bold text-[#333333] text-right">: الأراء والتقييمات</h3>
@@ -266,7 +266,7 @@ export default function ProductDetailsPage({ params }) {
                         {reviews.items.map((review, i) => (
                             <div key={i} className="space-y-4 pb-8 border-b border-gray-100 last:border-0">
                                 {/* Top Header: Stars on left, User info on right */}
-                                <div className="flex items-start justify-between">
+                                <div className="flex items-center justify-between">
                                     {/* Left: Stars */}
                                   
                                     
@@ -424,17 +424,17 @@ export default function ProductDetailsPage({ params }) {
                     <div className="space-y-10">
                         {product.comparisonStores.map((s, i) => (
                             <div key={i} className="flex flex-col md:flex-row items-center justify-between pb-6 border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors p-4 rounded-xl">
-                                <div className="text-[19px] font-bold text-[#07334B]" dir="ltr">{s.price}</div>
-                                <div className="text-right space-y-1.5 flex flex-col items-end">
+                                <div className="text-right space-y-1.5 flex flex-col items-start">
                                     <div className="flex items-center gap-2 text-[15px] font-bold text-[#333333]">
-                                        {s.name} 
                                         <Store className="w-4 h-4 text-[#8B8A6C]" />
+                                        {s.name} 
                                     </div>
                                     <div className="flex items-center gap-2 text-[13px] text-[#777777]">
-                                        {s.location} 
                                         <MapPin className="w-4 h-4 text-[#8B8A6C]" />
+                                        {s.location} 
                                     </div>
                                 </div>
+                                <div className="text-[19px] font-bold text-[#07334B]" dir="ltr">{s.price}</div>
                             </div>
                         ))}
                     </div>

@@ -49,7 +49,7 @@ export default function ProductCard({ product }) {
           <div className="flex items-center justify-start gap-2 text-[13px] text-[#777777]">
             <Grid3x3 className="w-4 h-4 text-[#8B8A6C]" />
             <span className="text-[#AAAAAA] mr-1">الفئة :</span>
-            <span className="font-medium">{product.category}</span>
+            <span className="font-medium text-primary">{product.category}</span>
           </div>
         </div>
 
@@ -58,12 +58,12 @@ export default function ProductCard({ product }) {
           <div className="flex items-center justify-start gap-2 text-[13px] text-[#777777]">
             <TrendingDown className="w-4 h-4 text-[#8B8A6C]" />
             <span className="text-[#AAAAAA]">أقل سعر :</span>
-            <span className="font-bold text-[#8B8A6C] text-[15px]">{product.minPrice}</span>
+            <span className="font-medium text-primary text-[15px]">{product.minPrice}</span>
           </div>
           <div className="flex items-center justify-start gap-2 text-[13px] text-[#777777]">
             <TrendingUp className="w-4 h-4 text-gray-400" />
             <span className="text-[#AAAAAA]">أعلى سعر :</span>
-            <span className="font-bold text-[#333333] text-[15px]">{product.maxPrice}</span>
+            <span className="font-medium text-primary text-[15px]">{product.maxPrice}</span>
           </div>
         </div>
 
@@ -71,7 +71,7 @@ export default function ProductCard({ product }) {
         <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-start gap-3 text-[12px] text-[#AAAAAA]">
           <Eye className="w-4 h-4" />
           <span className="text-[#BBBBBB]">عدد المشاهدين :</span>
-          <span className="font-medium text-[#777777]">{product.views}</span>
+          <span className="font-medium text-primary">{product.views}</span>
         </div>
       </Link>
     </div>

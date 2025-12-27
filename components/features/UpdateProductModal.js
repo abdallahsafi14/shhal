@@ -118,7 +118,7 @@ export default function UpdateProductModal({ isOpen, onClose }) {
                             </div>
 
                             {/* Add Another Branch */}
-                            <div className="flex justify-end pt-2">
+                            <div className="flex justify-start pt-2">
                                 <button className="flex items-center gap-2 text-[#777777] hover:text-[#07334B] transition-colors font-bold text-[14px]">
                                     <span className="underline underline-offset-4">أدخل فرع أخر للمحل</span>
                                     <div className="w-5 h-5 rounded-md border border-gray-300 flex items-center justify-center">
@@ -129,15 +129,15 @@ export default function UpdateProductModal({ isOpen, onClose }) {
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="flex flex-col md:flex-row gap-4 pt-4">
-                            <button className="flex-1 order-2 md:order-1 border border-[#07334B] text-[#07334B] font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 transition-all text-[16px]">
-                                <Coins className="w-5 h-5" /> أدخل سعر أخر
-                            </button>
+                        <div className="flex flex-col md:flex-row gap-4 pt-4 ">
                             <button 
                                 onClick={handleSubmit}
-                                className="flex-[1.5] order-1 md:order-2 bg-[#07334B] text-white font-bold py-4 rounded-xl hover:bg-[#0a4566] transition-all text-[16px] shadow-lg shadow-[#07334B]/20"
+                                className="flex-[1.5] order-2 md:order-1 bg-[#07334B] text-white font-bold py-4 rounded-xl hover:bg-[#0a4566] transition-all text-[16px] shadow-lg shadow-[#07334B]/20"
                             >
                                 تحديث المنتج
+                            </button>
+                            <button className="flex-1 order-2 md:order-1 border border-[#07334B] text-[#07334B] font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 transition-all text-[16px]">
+                                <Coins className="w-5 h-5" /> أدخل سعر أخر
                             </button>
                         </div>
                     </div>
