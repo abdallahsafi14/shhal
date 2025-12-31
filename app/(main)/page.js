@@ -213,10 +213,10 @@ export default function Home() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 ">
       {/* Categories Section */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between px-6">
           <h2 className="text-lg font-bold text-gray-900">الفئات المتوفرة</h2>
           <button 
             onClick={() => setIsCategoriesModalOpen(true)}

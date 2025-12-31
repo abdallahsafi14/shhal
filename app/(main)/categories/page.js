@@ -44,7 +44,7 @@ export default function CategoriesPage() {
     ];
 
     return (
-        <div className="max-w-[1200px] mx-auto pb-20">
+        <div className="max-w-[1200px] mx-auto pb-20 px-6">
             {/* Back Button */}
             <div className="flex justify-start mb-8">
                 <button 
@@ -61,7 +61,7 @@ export default function CategoriesPage() {
                 {products.map((product, index) => (
                     <div 
                         key={index}
-                        className="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-50 flex items-center justify-between hover:shadow-md transition-all duration-300 group"
+                        className="bg-white rounded-[2reax-[1400m] p-6 shadow-sm border border-gray-50 flex items-center justify-between hover:shadow-md transition-all duration-300 group"
                     >
                         {/* Right Side: Product Details */}
                         <div className="flex-1 pr-4">

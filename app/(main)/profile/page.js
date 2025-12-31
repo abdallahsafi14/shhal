@@ -69,7 +69,7 @@ export default function ProfilePage() {
 
     if (showVerify) {
         return (
-            <div className="animate-in slide-in-from-left-4 duration-500 w-full min-h-[600px] flex flex-col  px-4">
+            <div className="animate-in slide-in-from-left-4 duration-500 w-full min-h-[600px] flex flex-col  px-6">
                  {/* Back Button */}
                  <div className="w-full flex justify-start ">
                      <button 
@@ -141,7 +141,7 @@ export default function ProfilePage() {
     }
 
     return (
-        <div className="animate-fadeIn w-full">
+        <div className="animate-fadeIn w-full px-6">
             <h2 className="text-xl md:text-2xl font-bold text-[#07334B] mb-2 text-right">
                 قم بإنشاء التعديلات على ملفك الشخصي وحفظ <br className="hidden md:block"/> التعديلات
             </h2>

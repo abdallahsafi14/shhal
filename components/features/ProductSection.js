@@ -54,7 +54,7 @@ export default function ProductSection({ title, icon, products }) {
   return (
     <div className="space-y-4">
       {/* Section Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between px-6">
         {/* Title with Icon */}
         <div className="flex items-center gap-3">
           <div className="w-6 h-6 text-[#8B8A6C]">
@@ -79,7 +79,7 @@ export default function ProductSection({ title, icon, products }) {
         className="overflow-x-auto scrollbar-hide"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        <div className="grid grid-flow-col auto-cols-[minmax(260px,1fr)] gap-3.5 pb-2">
+        <div className="grid grid-flow-col auto-cols-[minmax(260px,1fr)] gap-3.5 pb-2 px-6">
           {products.map((product, index) => (
             <ProductCard key={index} product={product} />
           ))}

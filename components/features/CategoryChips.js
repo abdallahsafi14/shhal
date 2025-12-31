@@ -55,7 +55,7 @@ export default function CategoryChips({ categories }) {
   };
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 ps-6">
       {/* Navigation Arrows */}
       <SectionNavigator
         onPrev={() => scroll("left")}  // Left arrow scrolls left
@@ -68,7 +68,7 @@ export default function CategoryChips({ categories }) {
       <div
         ref={scrollContainerRef}
         onScroll={checkScrollability}
-        className="flex gap-3 overflow-x-auto scrollbar-hide flex-1"
+        className="flex gap-3 overflow-x-auto scrollbar-hide flex-1 pe-6"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {categories.map((category, index) => (
